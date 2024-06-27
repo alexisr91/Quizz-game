@@ -1,6 +1,7 @@
 import java.awt.event.*;
 import java.awt.*;
 import javax.swing.*;
+import javax.swing.JButton;
 
 
 
@@ -42,6 +43,8 @@ public class Quiz implements ActionListener{
     JFrame frame = new JFrame();
     JTextField textfield = new JTextField();
     JTextArea textarea = new JTextArea();
+    
+    
 
     JButton buttonA = new JButton();
     JButton buttonB = new JButton();
@@ -55,6 +58,7 @@ public class Quiz implements ActionListener{
 
     JLabel time_label = new JLabel();
     JLabel seconds_left = new JLabel();
+    JButton resetButton = new JButton("RESET");
 
     JTextField number_right = new JTextField();
     JTextField percentage = new JTextField();
@@ -82,7 +86,7 @@ public class Quiz implements ActionListener{
     public Quiz(){
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(650,650);
-        frame.getContentPane().setBackground(new Color(50,50,50));
+        frame.getContentPane().setBackground(new Color(45,85,10));
         frame.setLayout(null);
         frame.setResizable(false);
 
@@ -91,7 +95,7 @@ public class Quiz implements ActionListener{
         textfield.setBackground(new Color(25,25,25));
         textfield.setForeground(new Color(25, 255,0));
         textfield.setFont(new Font("MV Boli",Font.BOLD,30));
-        textfield.setBorder(BorderFactory.createBevelBorder(1));
+        textfield.setBorder(BorderFactory.createBevelBorder(0));
         textfield.setHorizontalAlignment(JTextField.CENTER);
         textfield.setEditable(false);
 
@@ -99,7 +103,7 @@ public class Quiz implements ActionListener{
         textarea.setBounds(0,50,650,50);
         textarea.setLineWrap(true);
         textarea.setWrapStyleWord(true);
-        textarea.setBackground(new Color(25,25,25));
+        textarea.setBackground(new Color(25,23,0));
         textarea.setForeground(new Color(25, 255,0));
         textarea.setFont(new Font("Ink Free",Font.BOLD,30));
         textarea.setBorder(BorderFactory.createBevelBorder(1));
@@ -172,25 +176,26 @@ public class Quiz implements ActionListener{
         seconds_left.setHorizontalAlignment(JTextField.CENTER);
         seconds_left.setText(String.valueOf(seconds));
 
-        time_label.setBounds(550,495,100,25);
+        time_label.setBounds(540,485,150,25);
         time_label.setBackground(new Color(50,50,50));
         time_label.setForeground(new Color(255,0,0));
-        time_label.setFont(new Font("MV Boli",Font.PLAIN,20));
+        time_label.setFont(new Font("MV Boli",Font.ROMAN_BASELINE,20));
         time_label.setHorizontalAlignment(JTextField.CENTER);
         time_label.setText("Timer");
 
-        number_right.setBounds(355,225,200,100);
+        number_right.setBounds(450,235,200,100);
         number_right.setBackground(new Color(25,25,25));
         number_right.setForeground(new Color(25, 255, 0));
-        number_right.setFont(new Font("Ink Free",Font.BOLD,50));
-        number_right.setBorder(BorderFactory.createBevelBorder(1));
+        number_right.setFont(new Font("Ink Free",Font.BOLD,45));
+        number_right.setBorder(BorderFactory.createBevelBorder(0));
         number_right.setHorizontalAlignment(JTextField.CENTER);
         number_right.setEditable(false);
 
-        percentage.setBounds(355,305,200,120);
+        percentage.setBounds(450,355,200,120);
         percentage.setBackground(new Color(25, 25, 25));
         percentage.setForeground(new Color(25,255,0));
-        percentage.setFont(new Font("Ink Free",Font.BOLD,50));
+        percentage.setFont(new Font("Ink Free",Font.BOLD,45));
+        percentage.setBorder(BorderFactory.createBevelBorder(1));
         percentage.setHorizontalAlignment(JTextField.CENTER);
         percentage.setEditable(false);
 
@@ -223,7 +228,7 @@ public class Quiz implements ActionListener{
         if(index>=total_questions){
             results();
         }else{
-            textfield.setText("Question" + (index+1));
+            textfield.setText("Question " + (index+1));
             textarea.setText(questions[index]);
             answer_labelA.setText(options[index][0]);
             answer_labelB.setText(options[index][1]);
@@ -235,44 +240,51 @@ public class Quiz implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e){
-
+        
+        if(e.getSource() == resetButton){
+            resetQuiz();
+        }else{
         buttonA.setEnabled(false);
         buttonB.setEnabled(false);
         buttonC.setEnabled(false);
         buttonD.setEnabled(false);
 
-            if(e.getSource()==buttonA){
-                answer = 'A';
-                if(answer == answers[index]){
-                    correct_guesses++;
-                }
+        if(e.getSource()==buttonA){
+            answer = 'A';
+            if(answer == answers[index]){
+                correct_guesses++;
             }
-
-            if(e.getSource()==buttonB){
-                answer = 'B';
-                if(answer == answers[index]){
-                    correct_guesses++;
-                }
+        }
+        if(e.getSource()==buttonB){
+            answer = 'B';
+            if(answer == answers[index]){
+                correct_guesses++;
             }
-
-            if(e.getSource()==buttonC){
-                answer = 'C';
-                if(answer == answers[index]){
-                    correct_guesses++;
-                }
+        }
+        if(e.getSource()==buttonC){
+            answer = 'C';
+            if(answer == answers[index]){
+                correct_guesses++;
             }
-
-
-            if(e.getSource()==buttonD){
-                answer = 'D';
-                if(answer == answers[index]){
-                    correct_guesses++;
-                }
+        }
+        if(e.getSource()==buttonD){
+            answer = 'D';
+            if(answer == answers[index]){
+                correct_guesses++;
             }
+        }
             // Après avoir conditionné et bindé les boutons, on appelle la méthode Display Answer qui va afficher la réponse, une fois 
             displayAnswer();
-    }
+        }
+        number_right.setText(null);
+        percentage.setText(null);
+        buttonA.setEnabled(true);
+        buttonB.setEnabled(true);
+        buttonC.setEnabled(true);
+        buttonD.setEnabled(true);
 
+       
+    }
 
     public void displayAnswer(){
 
@@ -325,7 +337,7 @@ public class Quiz implements ActionListener{
 
 
     public void results(){
-
+        
         buttonA.setEnabled(false);
         buttonB.setEnabled(false);
         buttonC.setEnabled(false);
@@ -346,6 +358,26 @@ public class Quiz implements ActionListener{
 
         frame.add(number_right);
         frame.add(percentage);
+        frame.add(resetButton);
 
+        
+        resetButton.setBounds(205, 450, 200, 100);
+        // Position 
+        resetButton.setFont(new Font("MV Boli", Font.TYPE1_FONT, 35));
+        resetButton.setForeground(new Color(95,100,80));
+        resetButton.setVisible(true);
+        resetButton.setFocusable(false);
+        resetButton.addActionListener(this);
+        resetButton.setVisible(true);
+
+
+    }
+
+     public void resetQuiz(){
+        index = 0;
+        correct_guesses = 0;
+        seconds = 10;
+        resetButton.setVisible(false);
+        nextQuestion();
     }
 }
