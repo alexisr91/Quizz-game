@@ -17,13 +17,12 @@ This is a simple a quizz in order to learn the basics of Java
 
 #### Is this a finished project ?
 
-No, I'm looking for new functionalities and I'm working on it.
+Yes as it's been shown in my commit name
 
 
 #### Which framework/libraries did you use ? 
 
 I used Swing and AWT to handle the GUI 
-
 
 
 
@@ -43,6 +42,7 @@ I used Swing and AWT to handle the GUI
 - Some sort of invisible pagination to go to the next question
 - The right answers are highlighted in green and the wrong in red
 - The amount of right answers are displayed at the end of the quizz
+- Reset the quizz and the results at the end of the quizz
 
 
 
